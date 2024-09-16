@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  SampleWeatherApp
+
+  Created by Harsh Chitrala on 16/09/24.
+  
+*/
+
+"MinTemp" = "Min Temp";
+"MaxTemp" = "Max Temp";
+"Humidity" = "Humidity";
