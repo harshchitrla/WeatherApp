@@ -28,6 +28,9 @@ final class WeatherViewModel: WeatherViewModelRepresentable, DispatchTaskPerform
     
     var viewState: ((ViewState) -> Void)?
     
+    /// init - Method to initialise WeatherViewModel
+    /// - Parameters:
+    ///     - weatherService:class which confirms to WeatherServiceRepresentable protocol
     init(weatherService: WeatherServiceRepresentable) {
         self.weatherService = weatherService
     }
@@ -40,6 +43,7 @@ final class WeatherViewModel: WeatherViewModelRepresentable, DispatchTaskPerform
         return weatherData.count
     }
     
+    // Method to get weather data of the search location
     func getWeatherDataForCity(_ name: String) {
         weatherService.getWeatherDataForCity(name) { [weak self] result in
             guard let self = self else { return }
@@ -48,7 +52,7 @@ final class WeatherViewModel: WeatherViewModelRepresentable, DispatchTaskPerform
                 switch result {
                 case .success(let weatherModel):
                     self.weatherData[Constants.searchLocation] = weatherModel
-                    self.updateLocationNameInDefaults(lastLocationName: name)
+                    self.updateLocationNameInDefaults(name: name)
                     self.viewState?(.update)
                 case .failure(let error):
                     self.viewState?(.error(error: error.localizedDescription))
@@ -57,16 +61,18 @@ final class WeatherViewModel: WeatherViewModelRepresentable, DispatchTaskPerform
         }
     }
     
+    // Method to get weather data of the previous search
     func loadWeatherDataFromPreviousSearch() {
         if let cityName = UserDefaults.standard.object(forKey: Constants.lastLocationName) as? String {
             getWeatherDataForCity(cityName)
         }
     }
     
-    func updateLocationNameInDefaults(lastLocationName: String) {
-        UserDefaults.standard.set(lastLocationName, forKey: Constants.lastLocationName)
+    func updateLocationNameInDefaults(name: String) {
+        UserDefaults.standard.set(name, forKey: Constants.lastLocationName)
     }
     
+    // Method to get weather data of the current location
     func getWeatherDataForLocation(with latitude: Double, longitude: Double) {
         weatherService.getWeatherDataForLocation(with: latitude, longitude: longitude) { [weak self] result in
             guard let self = self else { return }

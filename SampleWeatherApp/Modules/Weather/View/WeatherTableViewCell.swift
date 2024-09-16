@@ -81,6 +81,7 @@ final class WeatherTableViewCell: UITableViewCell {
         ])
     }
     
+    // Here I'm not passing WeatherModel in the arguments, I'm passing WeatherModelRepresentable because this cell can be resused with any model which confirms to WeatherModelRepresentable protocol. 
     func configureCell(weatherModelRepresentable: WeatherModelRepresentable) {
         cityNameLabel.text = weatherModelRepresentable.city
         minTempLabel.text = "\(LocalisedText.minTemp.localised): " + String(weatherModelRepresentable.tempMin)

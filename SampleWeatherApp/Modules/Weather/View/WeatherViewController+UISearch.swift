@@ -11,7 +11,7 @@ import UIKit
 // MARK: - UISearchResultsUpdating Delegate
 extension WeatherViewController: UISearchResultsUpdating {
     
-    // Adding debounce to the search request.
+    // Adding debounce to the search request.As of now added debounce logic, if I had more time I would have created a generic class and updated method 
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text, searchText.isEmpty == false else { return }
          //Invalidate and reinitiate

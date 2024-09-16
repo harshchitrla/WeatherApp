@@ -29,6 +29,9 @@ final class WeatherViewController: UIViewController {
        return tableView
     }()
     
+    /// init - Method to initialise WeatherViewController
+    /// - Parameters:
+    ///     - viewModel: class which confirms to WeatherViewModelRepresentable protocol
     init(viewModel: WeatherViewModelRepresentable) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -67,6 +70,10 @@ final class WeatherViewController: UIViewController {
         locationManager.requestLocation()
     }
     
+    private func registerCell() {
+        tableView.register(WeatherTableViewCell.self, forCellReuseIdentifier: "WeatherTableViewCell")
+    }
+    
     // MARK: - Setup UI
     // Method to configure UI
     private func setupUI() {
@@ -90,10 +97,6 @@ final class WeatherViewController: UIViewController {
             tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0),
             tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0)
         ])
-    }
-    
-    private func registerCell() {
-        tableView.register(WeatherTableViewCell.self, forCellReuseIdentifier: "WeatherTableViewCell")
     }
 }
 
